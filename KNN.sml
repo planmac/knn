@@ -11,6 +11,14 @@ structure KNN :> KNN = struct
     )
     
   val euclidianDistance = eucl  
+
+  fun mmlsts([],   []   ) => []
+    | mmlsts(p::ps,q::qs) => 
+        (List.min(p,q),List.max(p,q)) :: minmax(ps,qs)
+
+  fun minmax([]) => []
+    | minmax(p::ps) => 
+        let
     
   fun knn(tststr, dfile, delim, k) = 
     let
