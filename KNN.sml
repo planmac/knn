@@ -12,6 +12,8 @@ structure KNN :> KNN = struct
     
   val euclidianDistance = eucl  
 
+  fun string2realList(str, delim) => torl(splt(str, delim))
+
   fun mm((mi,ma),pl) => 
     ( (ListPair.map Real.min (mi,pl)
     , (ListPair.map Real.max (ma,pl)
@@ -25,7 +27,7 @@ fun string2realList(str, delim) =
     
   fun knn(tststr, dfile, delim, k) = 
     let
-      fun s2rl(s) = string2realList(s,delim)
+      fun s2rl(str) = string2realList(str,delim)
       val tst = s2rl(tststr)
       val stm = TextIO.openIn(dfile)
       val hdr = splt(TextIO.inputLine(stm), delim)
