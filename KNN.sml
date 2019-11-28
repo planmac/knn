@@ -18,19 +18,22 @@ structure KNN :> KNN = struct
     )
     
   fun minmax(pl::pls) => foldl mm (pl,pl) pls
+    | minmax([])      => []
+    
+fun string2realList(str, delim) = 
+  torl(splt(str, delim))
     
   fun knn(tststr, dfile, delim, k) = 
     let
-      val tst = torl (splt(tststr, delim))
+      fun s2rl(s) = string2realList(s,delim)
+      val tst = s2rl(tststr)
       val stm = TextIO.openIn(dfile)
-      val hdr = TextIO.inputLine(stm)
+      val hdr = splt(TextIO.inputLine(stm), delim)
 
       fun loop(lst) = 
         case TextIO.inputLine stm of
-          ""   => lst 
-        | line =>  
-    (*      NONE => lst 
-        | SOME line =>  *)
+          NONE, ""        => lst 
+        | SOME line, line =>  
             let
               val lrn = torl (splt(line, delim))
               val cls = List.last lrn
