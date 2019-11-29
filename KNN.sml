@@ -14,16 +14,19 @@ structure KNN :> KNN = struct
 
   fun string2realList(str, delim) => torl(splt(str, delim))
 
-  fun mm((mi,ma),pl) => 
-    ( (ListPair.map Real.min (mi,pl)
-    , (ListPair.map Real.max (ma,pl)
-    )
+
+
+  fun mm((_ ,_ ),[]) => []
+    | mm((mi,ma),pl) => 
+      ( (ListPair.map Real.min (mi,pl)
+      , (ListPair.map Real.max (ma,pl)
+      )
     
   fun minmax(pl::pls) => foldl mm (pl,pl) pls
     | minmax([])      => []
     
-fun string2realList(str, delim) = 
-  torl(splt(str, delim))
+  fun string2realList(str, delim) = 
+    torl(splt(str, delim))
     
   fun knn(tststr, dfile, delim, k) = 
     let
