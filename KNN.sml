@@ -2,7 +2,6 @@ structure KNN :> KNN = struct
 
   fun splt(str, delim) = String.fields (fn(ch) => ch = delim ) str
   fun torl(sls) = List.map (valOf o Real.fromString) sls
-  fun butlast(ls) = List.take(ls,List.length(ls))
   fun ordr((x,xc), (y,yc)) = Real.compare(x,y)
   fun eucl(ps,qs) = 
     Math.sqrt( 
@@ -26,7 +25,8 @@ structure KNN :> KNN = struct
   fun minmax(pl::pls) => foldl mm (pl,pl) pls
     | minmax([])      => []
     
-  fun mmscaleOneValue(v,mi,ma) => (v - mi) / (ma - mi)  
+  fun string2realList(str, delim) = 
+    torl(splt(str, delim))
     
   fun knn(tststr, dfile, delim, k) = 
     let
@@ -37,12 +37,10 @@ structure KNN :> KNN = struct
 
       fun loop(lst) = 
         case TextIO.inputLine stm of
-   (*     NONE      => lst 
-        | SOME line =>   *)
-          ""   => lst 
-        | line =>  
+          NONE, ""        => lst 
+        | SOME line, line =>  
             let
-              val lrn = torl (butlast(splt(line, delim)))
+              val lrn = torl (splt(line, delim))
               val cls = List.last lrn
               val dst = eucl(tst, lrn)
             in 
@@ -54,4 +52,7 @@ structure KNN :> KNN = struct
         List.take( (Listsort.sort ordr (loop [])) , k) 
       ) / (real k)
     end
+
+  fun 
+
 end
