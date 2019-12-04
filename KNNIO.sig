@@ -2,12 +2,24 @@
 
 signature KNNIO = sig
 
-  datatype dataTy = 
-    
+  datatype dataTy = datatype dataTy 
+
+  (* 
+  datatype 'a dataTy = 
+    ARR array of 'a
+  | LST list of 'a
+  | TPL 'a * TPL 'b
+  *)
+  
+  type optionsTy = 
+  { header: int list
+  , names:  string list
+  
+  }
 
   type dataframeTy = {
     data    : dataTy,
-    index   : int,
+    index   : array of int,
     columns : array of string,
     dtype   : string,
     copy    : bool
