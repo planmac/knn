@@ -2,20 +2,13 @@
 
 signature KNNIO = sig
 
-  datatype dataTy = datatype dataTy 
-
-  (* 
-  datatype 'a dataTy = 
-    ARR array of 'a
-  | LST list of 'a
-  | TPL 'a * TPL 'b
-  *)
-  
-  type optionsTy = 
-  { header: int list
-  , names:  string list
-  
-  }
+  datatype dataTy = 
+    Bool of bool
+  | Int of int
+  | Real of real
+  | String of string
+  (* Date, Time, DateTime, Oid(?), Bytea *)
+  | Null
 
   type dataframeTy = {
     data    : dataTy,
@@ -28,3 +21,4 @@ signature KNNIO = sig
   fun read_csv : string * char * optionsTy -> dataframeTy  
 
 end
+
